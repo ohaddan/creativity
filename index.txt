@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bridging Fields in Creativity Research</title>
+  <style>
+    body {
+      font-family: "Georgia", serif;
+      background-color: #f4f4f4;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+    h1 {
+      text-align: center;
+      font-size: 2.2em;
+      margin-bottom: 0.5em;
+    }
+    p {
+      font-size: 1.1em;
+      line-height: 1.6;
+      text-align: justify;
+    }
+    a {
+      color: #2a6f97;
+      text-decoration: none;
+    }
+    .gallery {
+      display: none;
+      margin-top: 40px;
+    }
+    .gallery img {
+      width: 100%;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .slideshow-container {
+      position: relative;
+    }
+    .slide {
+      display: none;
+    }
+    .fade {
+      animation-name: fade;
+      animation-duration: 2s;
+    }
+    @keyframes fade {
+      from { opacity: .4 } 
+      to { opacity: 1 }
+    }
+    .prev, .next {
+      cursor: pointer;
+      position: absolute;
+      top: 50%;
+      width: auto;
+      margin-top: -22px;
+      padding: 16px;
+      color: #333;
+      font-weight: bold;
+      font-size: 18px;
+      transition: 0.3s;
+      user-select: none;
+    }
+    .next { right: 0; }
+    .prev { left: 0; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Bridging Fields in Creativity Research</h1>
+    <p>
+      The international conference <strong>"Bridging Fields in Creativity Research: Towards Circuit Mechanisms of the Creative Process"</strong> brought together experts from neuroscience, psychology, artificial intelligence, and other fields to explore the mechanisms underlying human creativity.
+      Hosted by the FIAS Institute in Oppenheim, Germany, the conference fostered interdisciplinary dialogue and collaboration.
+      For more information, visit the official event page at
+      <a href="https://fias.institute/en/events/all-events/bridging-fields-in-creativity-research/" target="_blank">FIAS Conference Page</a>.
+    </p>
+
+    <div id="password-section">
+      <p><strong>Enter Password to View Gallery:</strong></p>
+      <input type="text" id="password-input" placeholder="Password..." />
+      <button onclick="checkPassword()">Submit</button>
+    </div>
+
+    <div class="gallery" id="gallery">
+      <div class="slideshow-container" id="slideshow">
+        <!-- Slides will be injected here by JavaScript -->
+      </div>
+      <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+      <a class="next" onclick="plusSlides(1)">&#10095;</a>
+    </div>
+  </div>
+
+  <script>
+    const PASSWORD = "oppenheim";
+    let slideIndex = 0;
+    const gallery = document.getElementById("gallery");
+    const passwordSection = document.getElementById("password-section");
+
+    function checkPassword() {
+      const input = document.getElementById("password-input").value.toLowerCase();
+      if (input === PASSWORD.toLowerCase()) {
+        passwordSection.style.display = "none";
+        gallery.style.display = "block";
+        loadImages();
+      } else {
+        alert("Incorrect password.");
+      }
+    }
+
+    function loadImages() {
+      fetch('photos/index.json')
+        .then(response => response.json())
+        .then(imagePaths => {
+          const slideshow = document.getElementById("slideshow");
+          imagePaths.forEach(path => {
+            const div = document.createElement("div");
+            div.className = "slide fade";
+            const img = document.createElement("img");
+            img.src = `photos/${path}`;
+            div.appendChild(img);
+            slideshow.appendChild(div);
+          });
+          showSlides();
+        })
+        .catch(err => {
+          alert("Could not load image list. Make sure photos/index.json exists.");
+          console.error(err);
+        });
+    }
+
+    function plusSlides(n) {
+      showSlides(slideIndex += n);
+    }
+
+    function showSlides(n) {
+      const slides = document.getElementsByClassName("slide");
+      if (!slides.length) return;
+      if (n >= slides.length) slideIndex = 0;
+      if (n < 0) slideIndex = slides.length - 1;
+      for (let slide of slides) {
+        slide.style.display = "none";
+      }
+      slides[slideIndex].style.display = "block";
+    }
+
+    function autoAdvanceSlides() {
+      plusSlides(1);
+      setTimeout(autoAdvanceSlides, 5000);
+    }
+
+    function showSlidesAuto() {
+      const slides = document.getElementsByClassName("slide");
+      for (let slide of slides) slide.style.display = "none";
+      slideIndex = (slideIndex + 1) % slides.length;
+      slides[slideIndex].style.display = "block";
+      setTimeout(showSlidesAuto, 5000);
+    }
+  </script>
+</body>
+</html>
