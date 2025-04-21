@@ -170,6 +170,7 @@
         passwordSection.style.display = "none";
         gallery.style.display = "block";
         loadImages();
+        autoAdvanceInterval = setInterval(() => plusSlides(1), 5000); // 🚀 Start slideshow immediately
       } else {
         alert("Incorrect password.");
       }
@@ -207,19 +208,24 @@
       const slides = document.getElementsByClassName("slide");
       if (!slides.length) return;
       const totalSlides = slides.length;
-
+    
       if (n >= totalSlides) slideIndex = 0;
       else if (n < 0) slideIndex = totalSlides - 1;
       else slideIndex = n;
-
+    
       for (let slide of slides) {
         slide.style.display = "none";
+        slide.classList.remove("fade"); // Remove fade class so it can restart later
       }
       slides[slideIndex].style.display = "block";
-
+      
+      // 🚀 Smooth fade effect:
+      void slides[slideIndex].offsetWidth; // Trick to restart CSS animation
+      slides[slideIndex].classList.add("fade");
+    
       const input = document.getElementById("slide-input");
       if (input) input.value = slideIndex + 1;
-
+    
       const newUrl = `${window.location.pathname}?image=${slideIndex + 1}`;
       window.history.replaceState(null, '', newUrl);
     }
