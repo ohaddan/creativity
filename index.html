@@ -4,120 +4,165 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Bridging Fields in Creativity Research</title>
-  <style>
-    body {
-      font-family: "Helvetica Neue", "Segoe UI", sans-serif;
-      background: linear-gradient(to right, #f7f9fc, #e8f0f9);
-      color: #333;
-      margin: 0;
-      padding: 0;
-    }
+<style>
+  body {
+    font-family: "Helvetica Neue", "Segoe UI", sans-serif;
+    background: linear-gradient(to right, #f7f9fc, #e8f0f9);
+    color: #333;
+    margin: 0;
+    padding: 0;
+  }
+  .container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 40px 20px;
+    background-color: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+  }
+  h1 {
+    text-align: center;
+    font-size: 2.2em;
+    margin-bottom: 0.8em;
+    color: #2a6f97;
+    letter-spacing: 1px;
+  }
+  p {
+    font-size: 1.1em;
+    line-height: 1.8;
+    text-align: justify;
+    margin-bottom: 1.5em;
+  }
+  a {
+    color: #1b4965;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+  #password-section {
+    text-align: center;
+    margin-top: 30px;
+  }
+  input[type="text"], input[type="number"] {
+    padding: 10px;
+    font-size: 1em;
+    border-radius: 8px;
+    border: 2px solid #ccc;
+    background-color: #f9f9f9;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+    max-width: 200px;
+  }
+  input[type="number"]:focus, input[type="text"]:focus {
+    border-color: #2a6f97;
+    box-shadow: 0 0 8px rgba(42, 111, 151, 0.5);
+    outline: none;
+  }
+  button {
+    padding: 10px 20px;
+    font-size: 1em;
+    border: none;
+    border-radius: 8px;
+    background-color: #2a6f97;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  button:hover {
+    background-color: #1b4965;
+  }
+  .gallery {
+    display: none;
+    margin-top: 40px;
+  }
+  .gallery img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+  }
+  .slideshow-container {
+    position: relative;
+  }
+  .slide {
+    display: none;
+  }
+  .fade {
+    animation-name: fade;
+    animation-duration: 1.5s;
+  }
+  @keyframes fade {
+    from { opacity: .4; }
+    to { opacity: 1; }
+  }
+  .prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    margin-top: -22px;
+    padding: 14px;
+    color: #1b4965;
+    font-weight: bold;
+    font-size: 22px;
+    transition: background-color 0.3s;
+    border-radius: 50%;
+    background-color: rgba(255,255,255,0.7);
+    user-select: none;
+  }
+  .next { right: 20px; }
+  .prev { left: 20px; }
+  .prev:hover, .next:hover {
+    background-color: #cce0f0;
+  }
+
+  /* 📱 Responsive Design 📱 */
+  @media (max-width: 768px) {
     .container {
-      max-width: 900px;
-      margin: 60px auto;
-      padding: 50px 30px;
-      background-color: #ffffff;
-      border-radius: 16px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+      margin: 20px;
+      padding: 30px 15px;
     }
     h1 {
-      text-align: center;
-      font-size: 2.5em;
-      margin-bottom: 0.8em;
-      color: #2a6f97;
-      letter-spacing: 1px;
+      font-size: 1.8em;
     }
     p {
-      font-size: 1.2em;
-      line-height: 1.8;
-      text-align: justify;
-      margin-bottom: 1.5em;
-    }
-    a {
-      color: #1b4965;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
-    #password-section {
-      text-align: center;
-      margin-top: 40px;
-    }
-    input[type="text"], input[type="number"] {
-      padding: 10px;
-      font-size: 1.1em;
-      border-radius: 8px;
-      border: 2px solid #ccc;
-      background-color: #f9f9f9;
-      transition: border-color 0.3s, box-shadow 0.3s;
-      margin-top: 10px;
-      margin-bottom: 20px;
-      text-align: center;
-    }
-    input[type="number"]:focus, input[type="text"]:focus {
-      border-color: #2a6f97;
-      box-shadow: 0 0 8px rgba(42, 111, 151, 0.5);
-      outline: none;
-    }
-    button {
-      padding: 10px 20px;
       font-size: 1em;
-      border: none;
-      border-radius: 8px;
-      background-color: #2a6f97;
-      color: white;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-    button:hover {
-      background-color: #1b4965;
-    }
-    .gallery {
-      display: none;
-      margin-top: 50px;
-    }
-    .gallery img {
-      width: 100%;
-      border-radius: 12px;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.1);
-    }
-    .slideshow-container {
-      position: relative;
-    }
-    .slide {
-      display: none;
-    }
-    .fade {
-      animation-name: fade;
-      animation-duration: 1s;
-    }
-    @keyframes fade {
-      from { opacity: .4 } 
-      to { opacity: 1 }
     }
     .prev, .next {
-      cursor: pointer;
-      position: absolute;
-      top: 50%;
-      width: auto;
-      margin-top: -22px;
-      padding: 16px;
-      color: #1b4965;
-      font-weight: bold;
-      font-size: 24px;
-      transition: background-color 0.3s;
-      border-radius: 50%;
-      background-color: rgba(255,255,255,0.7);
-      user-select: none;
+      padding: 10px;
+      font-size: 20px;
     }
-    .next { right: 20px; }
-    .prev { left: 20px; }
-    .prev:hover, .next:hover {
-      background-color: #cce0f0;
+    input[type="number"], input[type="text"] {
+      max-width: 150px;
     }
-  </style>
+  }
+
+  @media (max-width: 480px) {
+    .container {
+      margin: 10px;
+      padding: 20px 10px;
+    }
+    h1 {
+      font-size: 1.6em;
+    }
+    p {
+      font-size: 0.95em;
+    }
+    .prev, .next {
+      padding: 8px;
+      font-size: 18px;
+    }
+    input[type="number"], input[type="text"] {
+      max-width: 120px;
+      font-size: 0.9em;
+    }
+  }
+</style>
+
 </head>
 
 <body>
